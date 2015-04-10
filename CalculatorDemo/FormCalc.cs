@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,11 +13,14 @@ namespace CalculatorDemo
 {
     public partial class frmCalculator : Form
     {
+        private CalculatorEngine Calc = new CalculatorEngine();
+
         public frmCalculator()
         {
             InitializeComponent();
         }
 
+        #region numPad
         private void btnDot_Click(object sender, EventArgs e)
         {
             if (!txtDisplay.Text.Contains("."))
@@ -89,7 +93,8 @@ namespace CalculatorDemo
         private void btn9_Click(object sender, EventArgs e)
         {
             addToScreen("9");
-        }
+        } 
+        #endregion
 
         /// <summary>
         /// This will add the string to the display
@@ -140,6 +145,93 @@ namespace CalculatorDemo
             return val;
         }
 
+        private void clearText()
+        {
+            txtDisplay.Text = "0";
+        }
+
+        private void CleanTxt(object sender, KeyEventArgs e)
+        {
+            string tmpTxt = txtDisplay.Text;
+            Regex digitsOnly = new Regex(@"[^\d.]");
+            txtDisplay.Text = digitsOnly.Replace(tmpTxt, "");
+            txtDisplay.Select(txtDisplay.Text.Length, 0);
+        }
+
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            Calc.ResetAll();
+            clearText();
+        }
+
+        private void btnClearDisplay_Click(object sender, EventArgs e)
+        {
+            clearText();
+        }
+
+
+        #region Operations
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            DoCalc(CalculationOperator.add);
+        }
+
+        private void btnSub_Click(object sender, EventArgs e)
+        {
+            DoCalc(CalculationOperator.subtract);
+        }
+
+        private void btnDiv_Click(object sender, EventArgs e)
+        {
+            DoCalc(CalculationOperator.divide);
+        }
+
+        private void btnMulti_Click(object sender, EventArgs e)
+        {
+            DoCalc(CalculationOperator.multiply);
+        }
+
+        private void btnEqual_Click(object sender, EventArgs e)
+        {
+            if (txtDisplay.Text == "")
+            {
+                txtDisplay.Text = Calc.ReturnStoredValue().ToString();
+            }
+            else
+            {
+                txtDisplay.Text = Calc.DoCalculation(Double.Parse(txtDisplay.Text)).ToString();
+            }
+        }
+
+        private void DoCalc(CalculationOperator oper)
+        {
+            Calc.DoCalculation(Double.Parse(txtDisplay.Text));
+            Calc.AddCalcOperator(oper);
+            clearText();
+        }
+        #endregion
+
+        #region Memory
+        private void btmMemAdd_Click(object sender, EventArgs e)
+        {
+            Calc.MemoryAdd(Double.Parse(txtDisplay.Text));
+        }
+
+        private void btnMemSub_Click(object sender, EventArgs e)
+        {
+            Calc.MemorySubtract(Double.Parse(txtDisplay.Text));
+        }
+
+        private void btnMemRecall_Click(object sender, EventArgs e)
+        {
+            txtDisplay.Text = Calc.MemoryGetValue().ToString();
+        }
+
+        private void btnMemClear_Click(object sender, EventArgs e)
+        {
+            Calc.MemoryClear();
+        } 
+        #endregion
 
 
 

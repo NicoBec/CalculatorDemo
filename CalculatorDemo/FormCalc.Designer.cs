@@ -43,16 +43,28 @@
             this.btn0 = new System.Windows.Forms.Button();
             this.btn1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnClearDisplay = new System.Windows.Forms.Button();
+            this.btnClearAll = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnEqual = new System.Windows.Forms.Button();
+            this.btnMulti = new System.Windows.Forms.Button();
+            this.btnDiv = new System.Windows.Forms.Button();
+            this.btnSub = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btmMemAdd = new System.Windows.Forms.Button();
+            this.btnMemSub = new System.Windows.Forms.Button();
+            this.btnMemRecall = new System.Windows.Forms.Button();
+            this.btnMemClear = new System.Windows.Forms.Button();
             this.pnlNumPad.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtDisplay
             // 
             this.txtDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDisplay.Location = new System.Drawing.Point(13, 13);
+            this.txtDisplay.MaxLength = 20;
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtDisplay.Size = new System.Drawing.Size(370, 32);
@@ -200,36 +212,145 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnClearDisplay);
+            this.panel1.Controls.Add(this.btnClearAll);
             this.panel1.Location = new System.Drawing.Point(25, 61);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(244, 38);
+            this.panel1.Size = new System.Drawing.Size(151, 38);
             this.panel1.TabIndex = 2;
             // 
-            // button2
+            // btnClearDisplay
             // 
-            this.button2.Location = new System.Drawing.Point(54, 8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(42, 27);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "C";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnClearDisplay.Location = new System.Drawing.Point(54, 8);
+            this.btnClearDisplay.Name = "btnClearDisplay";
+            this.btnClearDisplay.Size = new System.Drawing.Size(42, 27);
+            this.btnClearDisplay.TabIndex = 5;
+            this.btnClearDisplay.Text = "C";
+            this.btnClearDisplay.UseVisualStyleBackColor = true;
+            this.btnClearDisplay.Click += new System.EventHandler(this.btnClearDisplay_Click);
             // 
-            // button1
+            // btnClearAll
             // 
-            this.button1.Location = new System.Drawing.Point(6, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 27);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "CE";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnClearAll.Location = new System.Drawing.Point(6, 8);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(42, 27);
+            this.btnClearAll.TabIndex = 4;
+            this.btnClearAll.Text = "CE";
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnMemClear);
+            this.panel2.Controls.Add(this.btnMemRecall);
+            this.panel2.Controls.Add(this.btnMemSub);
+            this.panel2.Controls.Add(this.btmMemAdd);
+            this.panel2.Controls.Add(this.btnEqual);
+            this.panel2.Controls.Add(this.btnMulti);
+            this.panel2.Controls.Add(this.btnDiv);
+            this.panel2.Controls.Add(this.btnSub);
+            this.panel2.Controls.Add(this.btnAdd);
+            this.panel2.Location = new System.Drawing.Point(183, 61);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(105, 178);
+            this.panel2.TabIndex = 3;
+            // 
+            // btnEqual
+            // 
+            this.btnEqual.Location = new System.Drawing.Point(3, 143);
+            this.btnEqual.Name = "btnEqual";
+            this.btnEqual.Size = new System.Drawing.Size(42, 27);
+            this.btnEqual.TabIndex = 10;
+            this.btnEqual.Text = "=";
+            this.btnEqual.UseVisualStyleBackColor = true;
+            this.btnEqual.Click += new System.EventHandler(this.btnEqual_Click);
+            // 
+            // btnMulti
+            // 
+            this.btnMulti.Location = new System.Drawing.Point(3, 110);
+            this.btnMulti.Name = "btnMulti";
+            this.btnMulti.Size = new System.Drawing.Size(42, 27);
+            this.btnMulti.TabIndex = 9;
+            this.btnMulti.Text = "*";
+            this.btnMulti.UseVisualStyleBackColor = true;
+            this.btnMulti.Click += new System.EventHandler(this.btnMulti_Click);
+            // 
+            // btnDiv
+            // 
+            this.btnDiv.Location = new System.Drawing.Point(3, 77);
+            this.btnDiv.Name = "btnDiv";
+            this.btnDiv.Size = new System.Drawing.Size(42, 27);
+            this.btnDiv.TabIndex = 8;
+            this.btnDiv.Text = "/";
+            this.btnDiv.UseVisualStyleBackColor = true;
+            this.btnDiv.Click += new System.EventHandler(this.btnDiv_Click);
+            // 
+            // btnSub
+            // 
+            this.btnSub.Location = new System.Drawing.Point(3, 44);
+            this.btnSub.Name = "btnSub";
+            this.btnSub.Size = new System.Drawing.Size(42, 27);
+            this.btnSub.TabIndex = 7;
+            this.btnSub.Text = "-";
+            this.btnSub.UseVisualStyleBackColor = true;
+            this.btnSub.Click += new System.EventHandler(this.btnSub_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(3, 8);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(42, 27);
+            this.btnAdd.TabIndex = 6;
+            this.btnAdd.Text = "+";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btmMemAdd
+            // 
+            this.btmMemAdd.Location = new System.Drawing.Point(51, 8);
+            this.btmMemAdd.Name = "btmMemAdd";
+            this.btmMemAdd.Size = new System.Drawing.Size(42, 27);
+            this.btmMemAdd.TabIndex = 11;
+            this.btmMemAdd.Text = "M+";
+            this.btmMemAdd.UseVisualStyleBackColor = true;
+            this.btmMemAdd.Click += new System.EventHandler(this.btmMemAdd_Click);
+            // 
+            // btnMemSub
+            // 
+            this.btnMemSub.Location = new System.Drawing.Point(51, 44);
+            this.btnMemSub.Name = "btnMemSub";
+            this.btnMemSub.Size = new System.Drawing.Size(42, 27);
+            this.btnMemSub.TabIndex = 12;
+            this.btnMemSub.Text = "M-";
+            this.btnMemSub.UseVisualStyleBackColor = true;
+            this.btnMemSub.Click += new System.EventHandler(this.btnMemSub_Click);
+            // 
+            // btnMemRecall
+            // 
+            this.btnMemRecall.Location = new System.Drawing.Point(51, 77);
+            this.btnMemRecall.Name = "btnMemRecall";
+            this.btnMemRecall.Size = new System.Drawing.Size(42, 27);
+            this.btnMemRecall.TabIndex = 13;
+            this.btnMemRecall.Text = "MR";
+            this.btnMemRecall.UseVisualStyleBackColor = true;
+            this.btnMemRecall.Click += new System.EventHandler(this.btnMemRecall_Click);
+            // 
+            // btnMemClear
+            // 
+            this.btnMemClear.Location = new System.Drawing.Point(51, 110);
+            this.btnMemClear.Name = "btnMemClear";
+            this.btnMemClear.Size = new System.Drawing.Size(42, 27);
+            this.btnMemClear.TabIndex = 14;
+            this.btnMemClear.Text = "MC";
+            this.btnMemClear.UseVisualStyleBackColor = true;
+            this.btnMemClear.Click += new System.EventHandler(this.btnMemClear_Click);
             // 
             // frmCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(395, 284);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlNumPad);
             this.Controls.Add(this.txtDisplay);
@@ -237,8 +358,10 @@
             this.Text = "Calculator";
             this.pnlNumPad.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.txtDisplay.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CleanTxt);
 
         }
 
@@ -259,8 +382,18 @@
         private System.Windows.Forms.Button btn0;
         private System.Windows.Forms.Button btnBsp;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnClearDisplay;
+        private System.Windows.Forms.Button btnClearAll;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnMulti;
+        private System.Windows.Forms.Button btnDiv;
+        private System.Windows.Forms.Button btnSub;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnEqual;
+        private System.Windows.Forms.Button btnMemClear;
+        private System.Windows.Forms.Button btnMemRecall;
+        private System.Windows.Forms.Button btnMemSub;
+        private System.Windows.Forms.Button btmMemAdd;
     }
 }
 
