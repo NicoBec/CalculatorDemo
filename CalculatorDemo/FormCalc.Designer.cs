@@ -46,15 +46,16 @@
             this.btnClearDisplay = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnMemClear = new System.Windows.Forms.Button();
+            this.btnMemRecall = new System.Windows.Forms.Button();
+            this.btnMemSub = new System.Windows.Forms.Button();
+            this.btmMemAdd = new System.Windows.Forms.Button();
             this.btnEqual = new System.Windows.Forms.Button();
             this.btnMulti = new System.Windows.Forms.Button();
             this.btnDiv = new System.Windows.Forms.Button();
             this.btnSub = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.btmMemAdd = new System.Windows.Forms.Button();
-            this.btnMemSub = new System.Windows.Forms.Button();
-            this.btnMemRecall = new System.Windows.Forms.Button();
-            this.btnMemClear = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.pnlNumPad.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -63,13 +64,16 @@
             // txtDisplay
             // 
             this.txtDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDisplay.Location = new System.Drawing.Point(13, 13);
+            this.txtDisplay.Location = new System.Drawing.Point(25, 13);
             this.txtDisplay.MaxLength = 20;
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtDisplay.Size = new System.Drawing.Size(370, 32);
+            this.txtDisplay.Size = new System.Drawing.Size(263, 32);
             this.txtDisplay.TabIndex = 0;
+            this.txtDisplay.Text = "0";
             this.txtDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtDisplay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDisplay_KeyPress);
+            this.txtDisplay.Leave += new System.EventHandler(this.txtDisplay_Leave);
             // 
             // pnlNumPad
             // 
@@ -255,6 +259,46 @@
             this.panel2.Size = new System.Drawing.Size(105, 178);
             this.panel2.TabIndex = 3;
             // 
+            // btnMemClear
+            // 
+            this.btnMemClear.Location = new System.Drawing.Point(51, 110);
+            this.btnMemClear.Name = "btnMemClear";
+            this.btnMemClear.Size = new System.Drawing.Size(42, 27);
+            this.btnMemClear.TabIndex = 14;
+            this.btnMemClear.Text = "MC";
+            this.btnMemClear.UseVisualStyleBackColor = true;
+            this.btnMemClear.Click += new System.EventHandler(this.btnMemClear_Click);
+            // 
+            // btnMemRecall
+            // 
+            this.btnMemRecall.Location = new System.Drawing.Point(51, 77);
+            this.btnMemRecall.Name = "btnMemRecall";
+            this.btnMemRecall.Size = new System.Drawing.Size(42, 27);
+            this.btnMemRecall.TabIndex = 13;
+            this.btnMemRecall.Text = "MR";
+            this.btnMemRecall.UseVisualStyleBackColor = true;
+            this.btnMemRecall.Click += new System.EventHandler(this.btnMemRecall_Click);
+            // 
+            // btnMemSub
+            // 
+            this.btnMemSub.Location = new System.Drawing.Point(51, 44);
+            this.btnMemSub.Name = "btnMemSub";
+            this.btnMemSub.Size = new System.Drawing.Size(42, 27);
+            this.btnMemSub.TabIndex = 12;
+            this.btnMemSub.Text = "M-";
+            this.btnMemSub.UseVisualStyleBackColor = true;
+            this.btnMemSub.Click += new System.EventHandler(this.btnMemSub_Click);
+            // 
+            // btmMemAdd
+            // 
+            this.btmMemAdd.Location = new System.Drawing.Point(51, 8);
+            this.btmMemAdd.Name = "btmMemAdd";
+            this.btmMemAdd.Size = new System.Drawing.Size(42, 27);
+            this.btmMemAdd.TabIndex = 11;
+            this.btmMemAdd.Text = "M+";
+            this.btmMemAdd.UseVisualStyleBackColor = true;
+            this.btmMemAdd.Click += new System.EventHandler(this.btmMemAdd_Click);
+            // 
             // btnEqual
             // 
             this.btnEqual.Location = new System.Drawing.Point(3, 143);
@@ -305,51 +349,21 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // btmMemAdd
+            // label1
             // 
-            this.btmMemAdd.Location = new System.Drawing.Point(51, 8);
-            this.btmMemAdd.Name = "btmMemAdd";
-            this.btmMemAdd.Size = new System.Drawing.Size(42, 27);
-            this.btmMemAdd.TabIndex = 11;
-            this.btmMemAdd.Text = "M+";
-            this.btmMemAdd.UseVisualStyleBackColor = true;
-            this.btmMemAdd.Click += new System.EventHandler(this.btmMemAdd_Click);
-            // 
-            // btnMemSub
-            // 
-            this.btnMemSub.Location = new System.Drawing.Point(51, 44);
-            this.btnMemSub.Name = "btnMemSub";
-            this.btnMemSub.Size = new System.Drawing.Size(42, 27);
-            this.btnMemSub.TabIndex = 12;
-            this.btnMemSub.Text = "M-";
-            this.btnMemSub.UseVisualStyleBackColor = true;
-            this.btnMemSub.Click += new System.EventHandler(this.btnMemSub_Click);
-            // 
-            // btnMemRecall
-            // 
-            this.btnMemRecall.Location = new System.Drawing.Point(51, 77);
-            this.btnMemRecall.Name = "btnMemRecall";
-            this.btnMemRecall.Size = new System.Drawing.Size(42, 27);
-            this.btnMemRecall.TabIndex = 13;
-            this.btnMemRecall.Text = "MR";
-            this.btnMemRecall.UseVisualStyleBackColor = true;
-            this.btnMemRecall.Click += new System.EventHandler(this.btnMemRecall_Click);
-            // 
-            // btnMemClear
-            // 
-            this.btnMemClear.Location = new System.Drawing.Point(51, 110);
-            this.btnMemClear.Name = "btnMemClear";
-            this.btnMemClear.Size = new System.Drawing.Size(42, 27);
-            this.btnMemClear.TabIndex = 14;
-            this.btnMemClear.Text = "MC";
-            this.btnMemClear.UseVisualStyleBackColor = true;
-            this.btnMemClear.Click += new System.EventHandler(this.btnMemClear_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(31, 255);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(122, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Please Try The Numpad";
             // 
             // frmCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(395, 284);
+            this.ClientSize = new System.Drawing.Size(316, 280);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlNumPad);
@@ -361,7 +375,6 @@
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.txtDisplay.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CleanTxt);
 
         }
 
@@ -394,6 +407,7 @@
         private System.Windows.Forms.Button btnMemRecall;
         private System.Windows.Forms.Button btnMemSub;
         private System.Windows.Forms.Button btmMemAdd;
+        private System.Windows.Forms.Label label1;
     }
 }
 

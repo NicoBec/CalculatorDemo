@@ -13,6 +13,7 @@ namespace CalculatorDemo
 {
     public partial class frmCalculator : Form
     {
+        //This is the Calculator Object used in this form
         private CalculatorEngine Calc = new CalculatorEngine();
 
         public frmCalculator()
@@ -20,20 +21,11 @@ namespace CalculatorDemo
             InitializeComponent();
         }
 
+        #region AllEvents
         #region numPad
         private void btnDot_Click(object sender, EventArgs e)
         {
-            if (!txtDisplay.Text.Contains("."))
-            {
-                if (txtDisplay.Text == "")
-                {
-                    addToScreen("0.");
-                }
-                else
-                {
-                    addToScreen(".");
-                }
-            }
+            addDot();
 
         }
 
@@ -93,9 +85,73 @@ namespace CalculatorDemo
         private void btn9_Click(object sender, EventArgs e)
         {
             addToScreen("9");
-        } 
+        }
         #endregion
 
+        #region Operations
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            DoCalc(CalculationOperator.add);
+        }
+
+        private void btnSub_Click(object sender, EventArgs e)
+        {
+            DoCalc(CalculationOperator.subtract);
+        }
+
+        private void btnDiv_Click(object sender, EventArgs e)
+        {
+            DoCalc(CalculationOperator.divide);
+        }
+
+        private void btnMulti_Click(object sender, EventArgs e)
+        {
+            DoCalc(CalculationOperator.multiply);
+        }
+
+        private void btnEqual_Click(object sender, EventArgs e)
+        {
+            doEqualCacl();
+        }
+
+        private void doEqualCacl()
+        {
+            if (txtDisplay.Text == "")
+            {
+                txtDisplay.Text = Calc.ReturnStoredValue().ToString();
+            }
+            else
+            {
+                txtDisplay.Text = Calc.DoCalculation(Double.Parse(txtDisplay.Text)).ToString();
+            }
+            resetCursor();
+        }
+
+        private void DoCalc(CalculationOperator oper)
+        {
+            Calc.DoCalculation(Double.Parse(txtDisplay.Text));
+            Calc.AddCalcOperator(oper);
+            clearText();
+        }
+
+
+        #endregion
+
+        #region OtherEvents
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            Calc.ResetAll();
+            clearText();
+        }
+
+        private void btnClearDisplay_Click(object sender, EventArgs e)
+        {
+            clearText();
+        }
+        #endregion
+        #endregion
+
+        #region FormFunctionality
         /// <summary>
         /// This will add the string to the display
         /// </summary>
@@ -103,6 +159,7 @@ namespace CalculatorDemo
         private void addToScreen(string val)
         {
             txtDisplay.Text = formatTxt(txtDisplay.Text, val);
+            resetCursor();
         }
 
         /// <summary>
@@ -118,6 +175,32 @@ namespace CalculatorDemo
             val += add;
 
             return leadZeroremove(val);
+        }
+
+        /// <summary>
+        /// This will add the dot if the dot is allowed
+        /// </summary>
+        private void addDot()
+        {
+            if (!txtDisplay.Text.Contains("."))
+            {
+                if (txtDisplay.Text == "")
+                {
+                    addToScreen("0.");
+                }
+                else
+                {
+                    addToScreen(".");
+                }
+            }
+        }
+
+        /// <summary>
+        /// The cursor needs to stay on the right almost all the time
+        /// </summary>
+        private void resetCursor()
+        {
+            txtDisplay.Select(txtDisplay.Text.Length, 0);
         }
 
         /// <summary>
@@ -145,71 +228,18 @@ namespace CalculatorDemo
             return val;
         }
 
+        /// <summary>
+        /// This will set the text back to a 0
+        /// </summary>
         private void clearText()
         {
             txtDisplay.Text = "0";
+            resetCursor();
         }
 
-        private void CleanTxt(object sender, KeyEventArgs e)
-        {
-            string tmpTxt = txtDisplay.Text;
-            Regex digitsOnly = new Regex(@"[^\d.]");
-            txtDisplay.Text = digitsOnly.Replace(tmpTxt, "");
-            txtDisplay.Select(txtDisplay.Text.Length, 0);
-        }
-
-        private void btnClearAll_Click(object sender, EventArgs e)
-        {
-            Calc.ResetAll();
-            clearText();
-        }
-
-        private void btnClearDisplay_Click(object sender, EventArgs e)
-        {
-            clearText();
-        }
-
-
-        #region Operations
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            DoCalc(CalculationOperator.add);
-        }
-
-        private void btnSub_Click(object sender, EventArgs e)
-        {
-            DoCalc(CalculationOperator.subtract);
-        }
-
-        private void btnDiv_Click(object sender, EventArgs e)
-        {
-            DoCalc(CalculationOperator.divide);
-        }
-
-        private void btnMulti_Click(object sender, EventArgs e)
-        {
-            DoCalc(CalculationOperator.multiply);
-        }
-
-        private void btnEqual_Click(object sender, EventArgs e)
-        {
-            if (txtDisplay.Text == "")
-            {
-                txtDisplay.Text = Calc.ReturnStoredValue().ToString();
-            }
-            else
-            {
-                txtDisplay.Text = Calc.DoCalculation(Double.Parse(txtDisplay.Text)).ToString();
-            }
-        }
-
-        private void DoCalc(CalculationOperator oper)
-        {
-            Calc.DoCalculation(Double.Parse(txtDisplay.Text));
-            Calc.AddCalcOperator(oper);
-            clearText();
-        }
         #endregion
+
+
 
         #region Memory
         private void btmMemAdd_Click(object sender, EventArgs e)
@@ -230,11 +260,79 @@ namespace CalculatorDemo
         private void btnMemClear_Click(object sender, EventArgs e)
         {
             Calc.MemoryClear();
-        } 
+        }
         #endregion
 
+        #region NumPad
 
+        /// <summary>
+        /// This will handle all the input and filter it so that the numpad will work
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtDisplay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //this is the string of the key that was pressed
+            string chr = e.KeyChar.ToString();
+            int i;
 
+            if (int.TryParse(chr, out i))
+            {
+                if (txtDisplay.Text == "0")
+                {
+                    txtDisplay.Text = "";
+                }
+            }
+            else
+            {
+                //This will stop the key form being inserted into the textbox
+                e.Handled = true;
 
+                switch (chr)
+                {
+                    case "/":
+                        DoCalc(CalculationOperator.divide);
+                        break;
+                    case "+":
+                        DoCalc(CalculationOperator.add);
+                        break;
+                    case "-":
+                        DoCalc(CalculationOperator.subtract);
+                        break;
+                    case "*":
+                        DoCalc(CalculationOperator.multiply);
+                        break;
+                    case "\r":
+                        doEqualCacl();
+
+                        break;
+                    case ".":
+                        addDot();
+                        break;
+                    case "\b":
+                        {
+                            if (txtDisplay.Text != "")
+                            {
+                                txtDisplay.Text = txtDisplay.Text.Substring(0, txtDisplay.Text.Length - 1);
+
+                            }
+                            break;
+                        }
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// This is to ensure the focus stays on the textbox
+        /// </summary>
+        private void txtDisplay_Leave(object sender, EventArgs e)
+        {
+            txtDisplay.Focus();
+            resetCursor();
+        }
+        #endregion
     }
 }
